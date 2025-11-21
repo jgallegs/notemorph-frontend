@@ -1,4 +1,3 @@
-// frontend/app/[locale]/page.tsx
 import Link from "next/link";
 import AiGlowButton from "../components/AIGlowButton";
 import GradientTitle from "../components/GradientTitle";
@@ -7,15 +6,16 @@ import {setRequestLocale} from "next-intl/server";
 import {useTranslations} from "next-intl";
 
 type Props = {
-  params: Promise<{locale: string}>;
+  params: Promise<{ locale: string }>;
 };
 
 export default function HomePage({ params }: Props) {
-  const {locale} = use(params);
-  
-  // Necesario para static rendering + uso de hooks de next-intl en Server Components
+  // ⬅️ IMPORTANTE EN NEXT 16: params es una Promise
+  const { locale } = use(params);
+
+  // Necesario para que next-intl sepa el locale en Server Components
   setRequestLocale(locale);
-  
+
   const t = useTranslations("Home");
 
   return (
@@ -26,14 +26,15 @@ export default function HomePage({ params }: Props) {
       </p>
 
       <div className="mt-8 flex gap-4">
+        {/* Rutas con locale explícito */}
         <Link
-          href={`./convert`}
+          href={`/${locale}/convert`}
           className="px-6 py-3 rounded-xl bg-blue-600 text-white shadow"
         >
           {t("classicButton")}
         </Link>
 
-        <AiGlowButton href={`./ai`}>{t("aiButton")}</AiGlowButton>
+        <AiGlowButton href={`/${locale}/ai`}>{t("aiButton")}</AiGlowButton>
       </div>
     </div>
   );
