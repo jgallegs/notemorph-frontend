@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Borde degradado animado para botones IA */
+
+.ai-glow-wrapper {
+  position: relative;
+  display: inline-flex;
+  border-radius: 9999px; /* pill */
+  padding: 2px; /* grosor del borde */
+  overflow: hidden; /* para que no se salga el gradiente */
+}
+
+/* Aquí va el gradiente que rota, pero NO el contenido */
+.ai-glow-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -50%; /* más grande que el botón para que cubra bien al rotar */
+  background: conic-gradient(
+    from 0deg,
+    #22d3ee,
+    #6366f1,
+    #ec4899,
+    #f97316,
+    #22d3ee
+  );
+  animation: ai-gradient-rotate 6s linear infinite;
+}
+
+/* El botón real, quieto encima del gradiente */
+.ai-glow-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  background-color: #020617; /* slate-950 */
+  color: white;
+  padding: 0.6rem 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+/* Animación del gradiente, no del botón */
+@keyframes ai-gradient-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

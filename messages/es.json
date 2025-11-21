@@ -1,0 +1,95 @@
+{
+  "Navbar": {
+    "classic": "Conversión clásica",
+    "ai": "Centro IA",
+    "pricing": "Precios",
+    "new": "nuevo"
+  },
+
+  "Home": {
+    "title": "Transforma tus documentos con IA",
+    "subtitle": "Convierte PDFs, resume textos y genera contenido al instante.",
+    "classicButton": "Conversión",
+    "aiButton": "IA avanzada"
+  },
+
+  "AI": {
+    "title": "Centro de IA para tus documentos",
+    "subtitle": "Pega texto, notas o extractos de PDF y genera resúmenes, mapas mentales o flashcards.",
+    "input": "Entrada",
+    "pasteHere": "Pega tu texto aquí",
+    "placeholder": "Pega aquí un texto, apunte, resumen o fragmento de PDF…",
+    "soon": "Procesar con IA (pronto)",
+    "result": "Resultado IA",
+    "resultInfo": "Aquí aparecerá el resultado generado por IA cuando conectemos el backend.",
+    "example": "Ejemplo",
+
+    "mode": {
+      "summary": "Resumen inteligente",
+      "mindmap": "Mapa mental / Esquema",
+      "flashcards": "Flashcards de estudio"
+    },
+
+    "summary": {
+      "line1": "• Resumen estructurado en puntos clave.",
+      "line2": "• Eliminación de repeticiones y ruido.",
+      "line3": "• Se muestran solo las ideas esenciales."
+    },
+
+    "mindmap": {
+      "line1": "• Jerarquía clara de títulos y subtítulos.",
+      "line2": "• Conexión entre ideas principales y secundarias.",
+      "line3": "• Ideal para estudiar y preparar presentaciones."
+    },
+
+    "flashcards": {
+      "line1": "• Generación automática de tarjetas (pregunta / respuesta).",
+      "line2": "• Diseñadas para memorización rápida.",
+      "line3": "• Perfectas para repasos espaciados."
+    }
+  },
+
+  "Convert": {
+    "title": "Conversor Inteligente",
+    "subtitle": "Sube un archivo y elige qué tipo de transformación quieres hacer.",
+    "drop": "Arrastra un archivo o haz clic para seleccionar",
+    "type": "Tipo de conversión",
+
+    "opt": {
+      "pdfWord": "PDF → Word",
+      "wordPdf": "Word → PDF",
+      "imageText": "Imagen → Texto",
+      "smart": "Resumen Inteligente",
+      "mindmap": "Mapa Mental / Esquema"
+    },
+
+    "result": "Resultado",
+    "resultInfo": "Aquí aparecerá el resultado cuando la conversión esté lista.",
+    "download": "Descargar resultado"
+  },
+
+  "Pricing": {
+    "title": "Planes y Precios",
+    "subtitle": "Empieza gratis y desbloquea todo el potencial de NoteMorph.",
+    "free": "Gratis",
+    "freeDesc": "2 conversiones al día · Funciones básicas",
+    "start": "Empezar",
+    "pro": "Pro",
+    "proDesc1": "Ilimitado",
+    "proDesc2": "Funciones IA avanzadas",
+    "proDesc3": "PDF → Word premium",
+    "subscribe": "Suscribirse"
+  },
+
+  "Dropzone": {
+    "placeholder": "Arrastra un archivo o pulsa para seleccionarlo",
+    "uploading": "Subiendo archivo...",
+    "error": "Error al subir archivo"
+  },
+
+  "Common": {
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Reintentar"
+  }
+}

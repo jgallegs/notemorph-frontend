@@ -1,0 +1,95 @@
+{
+  "Navbar": {
+    "classic": "Classic conversion",
+    "ai": "AI Center",
+    "pricing": "Pricing",
+    "new": "new"
+  },
+
+  "Home": {
+    "title": "Transform your documents with AI",
+    "subtitle": "Convert PDFs, summarize text and generate content instantly.",
+    "classicButton": "Conversion",
+    "aiButton": "Advanced AI"
+  },
+
+  "AI": {
+    "title": "AI Center for your documents",
+    "subtitle": "Paste text, notes or PDF fragments and generate summaries, mind maps or flashcards.",
+    "input": "Input",
+    "pasteHere": "Paste your text here",
+    "placeholder": "Paste any text, notes or PDF excerpts…",
+    "soon": "Process with AI (coming soon)",
+    "result": "AI Result",
+    "resultInfo": "The result will appear here once the backend is connected.",
+    "example": "Example",
+
+    "mode": {
+      "summary": "Smart Summary",
+      "mindmap": "Mind Map / Outline",
+      "flashcards": "Study Flashcards"
+    },
+
+    "summary": {
+      "line1": "• Summary structured into key points.",
+      "line2": "• Removes repetition and noise.",
+      "line3": "• Shows only the essential ideas."
+    },
+
+    "mindmap": {
+      "line1": "• Clear hierarchy of titles and subtitles.",
+      "line2": "• Relationship between main and secondary ideas.",
+      "line3": "• Ideal for studying and presentations."
+    },
+
+    "flashcards": {
+      "line1": "• Automatically generated flashcard-style Q&A.",
+      "line2": "• Designed for fast memorization.",
+      "line3": "• Perfect for spaced repetition."
+    }
+  },
+
+  "Convert": {
+    "title": "Smart Converter",
+    "subtitle": "Upload a file and choose what type of transformation you want.",
+    "drop": "Drag a file or click to select",
+    "type": "Conversion type",
+
+    "opt": {
+      "pdfWord": "PDF → Word",
+      "wordPdf": "Word → PDF",
+      "imageText": "Image → Text",
+      "smart": "Smart Summary",
+      "mindmap": "Mind Map / Outline"
+    },
+
+    "result": "Result",
+    "resultInfo": "The result will appear here once the conversion is ready.",
+    "download": "Download result"
+  },
+
+  "Pricing": {
+    "title": "Plans & Pricing",
+    "subtitle": "Start for free and unlock the full power of NoteMorph.",
+    "free": "Free",
+    "freeDesc": "2 conversions per day · Basic features",
+    "start": "Start",
+    "pro": "Pro",
+    "proDesc1": "Unlimited",
+    "proDesc2": "Advanced AI features",
+    "proDesc3": "Premium PDF → Word",
+    "subscribe": "Subscribe"
+  },
+
+  "Dropzone": {
+    "placeholder": "Drag a file or click to select",
+    "uploading": "Uploading file...",
+    "error": "Upload error"
+  },
+
+  "Common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Retry"
+  }
+}
