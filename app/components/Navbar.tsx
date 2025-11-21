@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import {usePathname, useRouter} from "next/navigation";
-import {useLocale, useTranslations} from "next-intl";
+import {useTranslations} from "next-intl";
 import {useMemo, useState} from "react";
 import AppLogo from "./AppLogo";
 
 const SUPPORTED_LOCALES = ["es", "en"] as const;
-
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 const NAV_ITEMS = [
@@ -19,21 +18,29 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
-  const locale = useLocale() as Locale;
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Normalizamos el pathname para quitar el locale inicial (/es, /en)
+  // 1) Sacamos el locale directamente de la URL: /es/... o /en/...
+  const locale: Locale = useMemo(() => {
+    const parts = pathname.split("/");
+    const maybeLocale = parts[1];
+    if (SUPPORTED_LOCALES.includes(maybeLocale as Locale)) {
+      return maybeLocale as Locale;
+    }
+    return "es"; // fallback
+  }, [pathname]);
+
+  // 2) Path "lógico" sin el locale inicial (para marcar activos, etc.)
   const currentPath = useMemo(() => {
-    if (!pathname) return "/";
     const parts = pathname.split("/");
     // ['', 'es', 'convert']
     if (parts.length <= 2) return "/";
     return "/" + parts.slice(2).join("/");
   }, [pathname]);
 
-  const buildHref = (targetLocale: string, path: string) => {
+  const buildHref = (targetLocale: Locale, path: string) => {
     if (!path || path === "/") {
       return `/${targetLocale}`;
     }
@@ -42,9 +49,8 @@ export default function Navbar() {
 
   const handleLocaleChange = (newLocale: string) => {
     if (!SUPPORTED_LOCALES.includes(newLocale as Locale)) return;
-
-    const newHref = buildHref(newLocale, currentPath);
-    router.push(newHref);
+    const href = buildHref(newLocale as Locale, currentPath);
+    router.push(href);
     setMobileOpen(false);
   };
 
@@ -126,7 +132,6 @@ export default function Navbar() {
               className="inline-flex items-center justify-center rounded-full p-2 border border-slate-300/70 dark:border-slate-700/70 hover:bg-slate-100 dark:hover:bg-slate-900"
             >
               <span className="sr-only">Abrir menú</span>
-              {/* icono hamburguesa */}
               <div className="space-y-[5px]">
                 <span
                   className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform ${
