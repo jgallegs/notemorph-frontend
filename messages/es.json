@@ -3,7 +3,10 @@
     "classic": "Conversión clásica",
     "ai": "Centro IA",
     "pricing": "Precios",
-    "new": "nuevo"
+    "new": "nuevo",
+    "home": "Home",
+    "convert": "Convertidor",
+    "language": "Idioma"
   },
 
   "Home": {

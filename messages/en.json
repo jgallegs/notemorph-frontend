@@ -3,7 +3,10 @@
     "classic": "Classic conversion",
     "ai": "AI Center",
     "pricing": "Pricing",
-    "new": "new"
+    "new": "new",
+    "home": "Home",
+    "convert": "Convertidor",
+    "language": "Idioma"
   },
 
   "Home": {

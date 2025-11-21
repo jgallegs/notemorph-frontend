@@ -1,117 +1,218 @@
 "use client";
 
 import Link from "next/link";
-import { useLocale, useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {useLocale, useTranslations} from "next-intl";
+import {useMemo, useState} from "react";
 import AppLogo from "./AppLogo";
 
-const LANGUAGES = [
-  {code: "es", label: "Español", short: "ES", flag: "🇪🇸"},
-  {code: "en", label: "English", short: "EN", flag: "🇬🇧"},
-  // {code: "fr", label: "Français", short: "FR", flag: "🇫🇷"},
-  // {code: "de", label: "Deutsch", short: "DE", flag: "🇩🇪"},
+const SUPPORTED_LOCALES = ["es", "en"] as const;
+
+type Locale = (typeof SUPPORTED_LOCALES)[number];
+
+const NAV_ITEMS = [
+  { key: "home", path: "" },          // /
+  { key: "convert", path: "/convert" },
+  { key: "ai", path: "/ai" },
+  { key: "pricing", path: "/pricing" }
 ];
-
-function getCurrentLocale(pathname: string): string {
-  if (pathname.startsWith("/en")) return "en";
-  if (pathname.startsWith("/es")) return "es";
-  return "es"; // fallback si estás en "/" o algo raro
-}
-
-function LanguagePicker() {
-  const pathname = usePathname();
-  const currentLocale = getCurrentLocale(pathname);
-  const [open, setOpen] = useState(false);
-
-  const currentLang =
-    LANGUAGES.find((l) => l.code === currentLocale) ?? LANGUAGES[0];
-
-  return (
-    <div className="relative">
-      {/* Botón principal del selector */}
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-200/80 dark:bg-slate-800/80 text-slate-900 dark:text-slate-100 text-xs sm:text-sm font-medium shadow-sm hover:bg-slate-300/80 dark:hover:bg-slate-700/80 transition"
-      >
-        <span>{currentLang.flag}</span>
-        <span className="hidden sm:inline">{currentLang.short}</span>
-        <span className="text-[10px] opacity-70">▼</span>
-      </button>
-
-      {/* Dropdown */}
-      {open && (
-        <div className="absolute right-0 mt-2 w-44 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 shadow-lg z-50 overflow-hidden">
-          {LANGUAGES.map((lang) => {
-            const active = lang.code === currentLocale;
-            const href = `/${lang.code}`; // SIMPLE: siempre home de ese idioma
-
-            return (
-              <Link
-                key={lang.code}
-                href={href}
-                scroll={false}
-                onClick={() => setOpen(false)}
-                className={
-                  "flex items-center gap-2 px-3 py-2 text-sm cursor-pointer transition " +
-                  (active
-                    ? "bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 text-white"
-                    : "text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800")
-                }
-              >
-                <span>{lang.flag}</span>
-                <span>{lang.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
-}
-
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
+  const pathname = usePathname();
+  const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Normalizamos el pathname para quitar el locale inicial (/es, /en)
+  const currentPath = useMemo(() => {
+    if (!pathname) return "/";
+    const parts = pathname.split("/");
+    // ['', 'es', 'convert']
+    if (parts.length <= 2) return "/";
+    return "/" + parts.slice(2).join("/");
+  }, [pathname]);
+
+  const buildHref = (targetLocale: string, path: string) => {
+    if (!path || path === "/") {
+      return `/${targetLocale}`;
+    }
+    return `/${targetLocale}${path}`;
+  };
+
+  const handleLocaleChange = (newLocale: string) => {
+    if (!SUPPORTED_LOCALES.includes(newLocale as Locale)) return;
+
+    const newHref = buildHref(newLocale, currentPath);
+    router.push(newHref);
+    setMobileOpen(false);
+  };
+
+  const handleNavClick = (path: string) => {
+    const href = buildHref(locale, path || "/");
+    router.push(href);
+    setMobileOpen(false);
+  };
 
   return (
-    <nav className="flex items-center justify-between px-4 md:px-10 py-4 border-b border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md sticky top-0 z-50">
-      {/* Logo izquierda */}
-      <div className="flex items-center gap-2 min-w-0">
-        <AppLogo />
-      </div>
+    <>
+      {/* NAVBAR */}
+      <nav className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
+        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <Link href={buildHref(locale, "/")} className="flex items-center gap-2">
+            <AppLogo />
+          </Link>
 
-      {/* Enlaces centro */}
-      <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-        <Link
-          href={`/${locale}/convert`}
-          className="text-slate-700 dark:text-slate-200 hover:text-sky-500 dark:hover:text-sky-400 transition"
-        >
-          {t("classic")}
-        </Link>
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-8">
+            <div className="flex items-center gap-6 text-sm font-medium">
+              {NAV_ITEMS.map((item) => {
+                const isActive =
+                  (item.path === "" && currentPath === "/") ||
+                  (item.path !== "" && currentPath.startsWith(item.path));
 
-        <Link
-          href={`/${locale}/ai`}
-          className="flex items-center gap-1 text-slate-700 dark:text-slate-200 hover:text-fuchsia-500 dark:hover:text-fuchsia-400 transition"
-        >
-          {t("ai")}
-          <span className="text-xs ml-1 bg-gradient-to-r from-sky-500 to-fuchsia-500 text-white px-1.5 py-0.5 rounded">
-            {t("new")}
-          </span>
-        </Link>
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => handleNavClick(item.path)}
+                    className={
+                      "relative transition-colors " +
+                      (isActive
+                        ? "text-sky-600 dark:text-sky-400"
+                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white")
+                    }
+                  >
+                    {t(item.key)}
+                    {isActive && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-sky-500 via-indigo-500 to-fuchsia-500 rounded-full" />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
 
-        <Link
-          href={`/${locale}/pricing`}
-          className="text-slate-700 dark:text-slate-200 hover:text-indigo-500 dark:hover:text-indigo-400 transition"
-        >
-          {t("pricing")}
-        </Link>
-      </div>
+            {/* Language selector (desktop) */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+                {t("language")}
+              </span>
+              <select
+                className="text-sm bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-3 py-1.5 text-slate-700 dark:text-slate-100 hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60"
+                value={locale}
+                onChange={(e) => handleLocaleChange(e.target.value)}
+              >
+                <option value="es">🇪🇸 ES</option>
+                <option value="en">🇬🇧 EN</option>
+              </select>
+            </div>
+          </div>
 
-      {/* Selector de idioma derecha */}
-      <LanguagePicker />
-    </nav>
+          {/* Mobile: language pill + hamburger */}
+          <div className="flex items-center gap-3 md:hidden">
+            <select
+              className="text-xs bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-2 py-1 text-slate-700 dark:text-slate-100 focus:outline-none"
+              value={locale}
+              onChange={(e) => handleLocaleChange(e.target.value)}
+            >
+              <option value="es">🇪🇸</option>
+              <option value="en">🇬🇧</option>
+            </select>
+
+            <button
+              type="button"
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label="Abrir menú"
+              className="inline-flex items-center justify-center rounded-full p-2 border border-slate-300/70 dark:border-slate-700/70 hover:bg-slate-100 dark:hover:bg-slate-900"
+            >
+              <span className="sr-only">Abrir menú</span>
+              {/* icono hamburguesa */}
+              <div className="space-y-[5px]">
+                <span
+                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform ${
+                    mobileOpen ? "translate-y-[7px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-opacity ${
+                    mobileOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform ${
+                    mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile overlay + panel lateral */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-30 md:hidden">
+          {/* Fondo oscuro */}
+          <div
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+          />
+
+          {/* Panel lateral */}
+          <div className="absolute right-0 top-0 h-full w-64 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-xl p-5 flex flex-col">
+            <div className="flex items-center justify-between mb-6">
+              <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {t("menu")}
+              </span>
+              <button
+                type="button"
+                onClick={() => setMobileOpen(false)}
+                className="p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-900"
+                aria-label="Cerrar menú"
+              >
+                ✕
+              </button>
+            </div>
+
+            <nav className="flex flex-col gap-3 text-sm">
+              {NAV_ITEMS.map((item) => {
+                const isActive =
+                  (item.path === "" && currentPath === "/") ||
+                  (item.path !== "" && currentPath.startsWith(item.path));
+
+                return (
+                  <button
+                    key={item.key}
+                    onClick={() => handleNavClick(item.path)}
+                    className={
+                      "text-left px-3 py-2 rounded-lg transition-colors " +
+                      (isActive
+                        ? "bg-sky-500/10 text-sky-600 dark:text-sky-400"
+                        : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900")
+                    }
+                  >
+                    {t(item.key)}
+                  </button>
+                );
+              })}
+            </nav>
+
+            <div className="mt-auto pt-6 border-t border-slate-200 dark:border-slate-800">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
+                {t("language")}
+              </p>
+              <select
+                className="w-full text-sm bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500/60"
+                value={locale}
+                onChange={(e) => handleLocaleChange(e.target.value)}
+              >
+                <option value="es">🇪🇸 Español</option>
+                <option value="en">🇬🇧 English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
