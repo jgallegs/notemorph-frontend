@@ -13,7 +13,9 @@
     "title": "Transforma tus documentos con IA",
     "subtitle": "Convierte PDFs, resume textos y genera contenido al instante.",
     "classicButton": "Conversión",
-    "aiButton": "IA avanzada"
+    "aiButton": "IA avanzada",
+    "metaTitle": "NoteMorph | Convierte PDFs y apuntes con IA",
+    "metaDescription": "Sube tu PDF o fotos de tus apuntes y conviértelos en Word limpio, listo para editar."
   },
 
   "Ai": {

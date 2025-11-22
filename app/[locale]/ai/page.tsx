@@ -4,6 +4,26 @@
 import { useState, type FormEvent } from "react";
 import { useTranslations } from "next-intl";
 
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+type Props = { params: { locale: string } };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale: params.locale, namespace: "Home" });
+
+  const title = t("metaTitle");
+  const description = t("metaDescription");
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://notemorph.com/${params.locale}`
+    }
+  };
+}
+
 const IA_MODES = ["summary", "mindmap", "flashcards", "ocr"] as const;
 type Mode = (typeof IA_MODES)[number];
 

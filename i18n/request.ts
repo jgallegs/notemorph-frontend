@@ -1,27 +1,17 @@
-import {getRequestConfig} from "next-intl/server";
+// /i18n/request.ts
+import { getRequestConfig } from "next-intl/server";
+import { locales, defaultLocale } from "./config";
 
-// Lista de idiomas soportados
-export const locales = ["es", "en"] as const;
-export type Locale = (typeof locales)[number];
-
-// Locale por defecto
-export const defaultLocale: Locale = "es";
-
-// export default
-export default getRequestConfig(async ({requestLocale}) => {
-  // requestLocale viene de next-intl (middleware/proxy)
-  let locale = (await requestLocale) as Locale | undefined;
-
-  if (!locale || !locales.includes(locale)) {
-    locale = defaultLocale;
-  }
-
-  // Ajusta la ruta según dónde tengas tus JSON:
-  // Si están en /messages/es.json y /messages/en.json en la raíz del proyecto:
-  const messages = (await import(`../messages/${locale}.json`)).default;
+export default getRequestConfig(async ({ requestLocale }) => {
+  const locale =
+    (await requestLocale) && locales.includes(await requestLocale as any)
+      ? (await requestLocale as any)
+      : defaultLocale;
 
   return {
     locale,
-    messages
+    messages: (await import(`../app/messages/${locale}.json`)).default,
   };
 });
+
+export { locales, defaultLocale };
