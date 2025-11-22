@@ -33,6 +33,15 @@
       "flashcards": "Flashcards de estudio"
     },
 
+    "ocr": {
+      "inputTitle": "Subir fotos de apuntes",
+      "inputSubtitle": "Imágenes JPG/PNG",
+      "button": "Procesar con OCR + IA",
+      "buttonLoading": "Procesando...",
+      "loadingText": "Procesando imágenes con OCR e IA...",
+      "emptyState": "Sube algunas imágenes y pulsa \"Procesar con OCR + IA\" para ver aquí el resultado."
+    },
+
     "summary": {
       "line1": "• Resumen estructurado en puntos clave.",
       "line2": "• Eliminación de repeticiones y ruido.",
