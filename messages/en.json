@@ -16,23 +16,21 @@
     "aiButton": "Advanced AI"
   },
 
-  "AI": {
-    "title": "AI Center for your documents",
-    "subtitle": "Paste text, notes or PDF fragments and generate summaries, mind maps or flashcards.",
-    "input": "Input",
-    "pasteHere": "Paste your text here",
-    "placeholder": "Paste any text, notes or PDF excerpts…",
-    "soon": "Process with AI (coming soon)",
-    "result": "AI Result",
-    "resultInfo": "The result will appear here once the backend is connected.",
-    "example": "Example",
-
-    "mode": {
-      "summary": "Smart Summary",
-      "mindmap": "Mind Map / Outline",
-      "flashcards": "Study Flashcards"
+  "Ai": {
+    "title": "Centro de IA para tus documentos",
+    "subtitle": "Pega texto, notas o extractos de PDF y deja que NoteMorph los convierta en resúmenes claros, mapas mentales o tarjetas de estudio. O sube fotos de tus apuntes y conviértelas en texto limpio.",
+    "modes": {
+      "summary": "Resumen inteligente",
+      "mindmap": "Mapa mental / Esquema",
+      "flashcards": "Flashcards de estudio",
+      "ocr": "OCR desde fotos"
     },
-
+    "input": {
+      "title": "Entrada",
+      "subtitle": "Pega tu texto aquí",
+      "placeholder": "Pega aquí un texto, resumen de clase, fragmento de PDF…",
+      "buttonSoon": "Procesar con IA (pronto)"
+    },
     "ocr": {
       "inputTitle": "Subir fotos de apuntes",
       "inputSubtitle": "Imágenes JPG/PNG",
@@ -41,23 +39,32 @@
       "loadingText": "Procesando imágenes con OCR e IA...",
       "emptyState": "Sube algunas imágenes y pulsa \"Procesar con OCR + IA\" para ver aquí el resultado."
     },
-
-    "summary": {
-      "line1": "• Summary structured into key points.",
-      "line2": "• Removes repetition and noise.",
-      "line3": "• Shows only the essential ideas."
+    "output": {
+      "title": "Resultado IA ({mode})",
+      "descriptionStandard": "Aquí aparecerá el resultado generado por IA una vez conectemos el backend.",
+      "descriptionOcr": "Aquí aparecerá el texto limpio y estructurado a partir de tus fotos de apuntes.",
+      "example": "Ejemplo:"
     },
-
-    "mindmap": {
-      "line1": "• Clear hierarchy of titles and subtitles.",
-      "line2": "• Relationship between main and secondary ideas.",
-      "line3": "• Ideal for studying and presentations."
+    "examples": {
+      "summary": {
+        "line1": "• Resumen estructurado en puntos clave.",
+        "line2": "• Se eliminan repeticiones y ruido.",
+        "line3": "• Se quedan solo las ideas importantes de tu texto."
+      },
+      "mindmap": {
+        "line1": "• Títulos y subtítulos jerárquicos.",
+        "line2": "• Relación entre conceptos principales y secundarios.",
+        "line3": "• Ideal para estudiar o preparar presentaciones."
+      },
+      "flashcards": {
+        "line1": "• Se generan preguntas tipo tarjeta (anverso / reverso).",
+        "line2": "• Pensadas para memorización rápida.",
+        "line3": "• Perfectas para repasos espaciados."
+      }
     },
-
-    "flashcards": {
-      "line1": "• Automatically generated flashcard-style Q&A.",
-      "line2": "• Designed for fast memorization.",
-      "line3": "• Perfect for spaced repetition."
+    "errors": {
+      "serverError": "Error en el servidor",
+      "ocrGeneric": "Error procesando las imágenes"
     }
   },
 
