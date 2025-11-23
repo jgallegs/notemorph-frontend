@@ -7,22 +7,30 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
-import { locales, Locale } from "../../i18n/config";
+import { locales, type Locale } from "../../i18n/config";
 import Navbar from "../components/Navbar";
 import { SITE_URL } from "../constants/site";
 
-type LayoutParams = { locale: Locale };
+type LayoutParams = { locale: string };
 
 type Props = {
   children: ReactNode;
   params: Promise<LayoutParams>;
 };
 
+function isLocale(value: string): value is Locale {
+  return (locales as readonly string[]).includes(value);
+}
+
+// Metadata por locale (hreflang y canonical)
 export async function generateMetadata(
   { params }: { params: Props["params"] }
 ): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
 
+  // No necesitamos que sea Locale estricto para el SEO,
+  // pero podemos normalizarlo un poco:
+  const locale = isLocale(rawLocale) ? rawLocale : locales[0];
   const baseUrl = SITE_URL;
 
   const languages: Record<string, string> = {};
@@ -39,11 +47,14 @@ export async function generateMetadata(
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
+  const { locale: rawLocale } = await params;
 
-  if (!locales.includes(locale)) {
+  // Aquí estrechamos el tipo de string -> Locale
+  if (!isLocale(rawLocale)) {
     notFound();
   }
+
+  const locale: Locale = rawLocale;
 
   setRequestLocale(locale);
   const messages = await getMessages();
@@ -57,5 +68,6 @@ export default async function LocaleLayout({ children, params }: Props) {
 }
 
 export function generateStaticParams() {
+  // locales ya viene tipado como Locale[], así que esto va perfecto
   return locales.map((locale) => ({ locale }));
 }
