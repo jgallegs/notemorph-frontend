@@ -10,12 +10,66 @@
   },
 
   "Home": {
-    "title": "Transforma tus documentos con IA",
-    "subtitle": "Convierte PDFs, resume textos y genera contenido al instante.",
-    "classicButton": "Conversión",
-    "aiButton": "IA avanzada",
     "metaTitle": "NoteMorph | Convierte PDFs y apuntes con IA",
-    "metaDescription": "Sube tu PDF o fotos de tus apuntes y conviértelos en Word limpio, listo para editar."
+    "metaDescription": "Sube tu PDF o fotos de tus apuntes y conviértelos en Word limpio, listo para editar.",
+    "badge": "Convierte, ordena y estudia con IA",
+    "title": "Convierte tus documentos en apuntes perfectos con IA",
+    "subtitle": "NoteMorph transforma PDFs, fotos de apuntes y documentos desordenados en material limpio, editable y listo para estudiar.",
+    "cta": {
+      "primary": "Empezar ahora",
+      "secondary": "Ver modo IA"
+    },
+    "trust": {
+      "fast": "Conversión rápida y segura",
+      "format": "Respeta formato, tablas y secciones",
+      "ai": "Entiende tu contenido con IA"
+    },
+    "preview": {
+      "badge": "Vista previa del resultado",
+      "caption": "Reconstrucción inteligente de tus apuntes: columnas, listas, tablas y títulos."
+    },
+    "features": {
+      "title": "Pensado para estudiantes, creadores y profesionales",
+      "subtitle": "NoteMorph combina OCR avanzado con IA para darte siempre el mejor resultado posible.",
+      "cta": "Ver planes",
+      "items": [
+        {
+          "title": "Conversión precisa de PDF a Word",
+          "description": "Respeta estructura, títulos y tablas para que no tengas que rehacer el documento."
+        },
+        {
+          "title": "OCR + IA para apuntes",
+          "description": "Convierte fotos de apuntes en documentos limpios, ordenados y listos para editar."
+        },
+        {
+          "title": "Modos de estudio inteligentes",
+          "description": "Próximamente: resúmenes, mapas mentales y flashcards en un solo clic."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "¿Cómo funciona NoteMorph?",
+      "steps": [
+        {
+          "title": "Sube tu PDF o fotos",
+          "description": "Arrastra tus documentos o imágenes de apuntes desde el móvil o el ordenador."
+        },
+        {
+          "title": "Deja que la IA trabaje",
+          "description": "Nuestro modelo interpreta el contenido, corrige errores de OCR y ordena el texto."
+        },
+        {
+          "title": "Descarga y edita",
+          "description": "Obtén un Word limpio, editable y listo para estudiar o compartir."
+        }
+      ]
+    },
+    "ctaFinal": {
+      "title": "Prepara tus apuntes para el siguiente nivel",
+      "subtitle": "Empieza gratis ahora y descubre cómo NoteMorph puede ahorrar horas de trabajo en cada asignatura o proyecto.",
+      "primary": "Probar modo IA",
+      "secondary": "Ver planes"
+    }
   },
 
   "Ai": {

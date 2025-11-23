@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { locales, type Locale } from "../../i18n/config";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import { SITE_URL } from "../constants/site";
 
 type LayoutParams = { locale: string };
@@ -62,7 +63,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <Navbar />
-      <main className="pt-4">{children}</main>
+      <main className="pt-0">{children}</main>
+      <Footer locale={locale} />
     </NextIntlClientProvider>
   );
 }

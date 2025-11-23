@@ -21,20 +21,17 @@ export default function Navbar() {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // 1) Sacamos el locale directamente de la URL: /es/... o /en/...
   const locale: Locale = useMemo(() => {
     const parts = pathname.split("/");
     const maybeLocale = parts[1];
     if (SUPPORTED_LOCALES.includes(maybeLocale as Locale)) {
       return maybeLocale as Locale;
     }
-    return "es"; // fallback
+    return "es";
   }, [pathname]);
 
-  // 2) Path "lógico" sin el locale inicial (para marcar activos, etc.)
   const currentPath = useMemo(() => {
     const parts = pathname.split("/");
-    // ['', 'es', 'convert']
     if (parts.length <= 2) return "/";
     return "/" + parts.slice(2).join("/");
   }, [pathname]);
@@ -61,8 +58,13 @@ export default function Navbar() {
 
   return (
     <>
-      {/* NAVBAR */}
-      <nav className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/70 backdrop-blur-xl">
+      <nav className="sticky top-0 z-40 bg-white/70 dark:bg-slate-950/60 backdrop-blur-xl">
+        {/* Glows suaves detrás de la navbar */}
+        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute -top-20 -left-40 h-56 w-56 rounded-full bg-sky-400/15 dark:bg-sky-500/20 blur-[120px]" />
+          <div className="absolute -top-24 right-0 h-48 w-48 rounded-full bg-fuchsia-400/10 dark:bg-fuchsia-500/15 blur-[120px]" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <AppLogo href={`/${locale}`} />
@@ -99,15 +101,15 @@ export default function Navbar() {
             <LangPickerDesktop locale={locale} onChange={handleLocaleChange} />
           </div>
 
-          {/* Mobile: language pill + hamburger */}
+          {/* Mobile: idioma + hamburguesa */}
           <div className="flex items-center gap-3 md:hidden">
             <select
-              className="text-xs bg-white/80 dark:bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-2 py-1 text-slate-700 dark:text-slate-100 focus:outline-none"
+              className="text-xs bg-white/80 dark:bg-slate-900 border border-slate-300/70 dark:border-slate-700/70 rounded-full px-2 py-1 text-slate-700 dark:text-slate-100 focus:outline-none"
               value={locale}
               onChange={(e) => handleLocaleChange(e.target.value)}
             >
-              <option value="es">🇪🇸</option>
-              <option value="en">🇬🇧</option>
+              <option value="es">🇪🇸 ES</option>
+              <option value="en">🇬🇧 EN</option>
             </select>
 
             <button
@@ -119,19 +121,22 @@ export default function Navbar() {
               <span className="sr-only">Abrir menú</span>
               <div className="space-y-[5px]">
                 <span
-                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform ${
-                    mobileOpen ? "translate-y-[7px] rotate-45" : ""
-                  }`}
+                  className={
+                    "block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform " +
+                    (mobileOpen ? "translate-y-[7px] rotate-45" : "")
+                  }
                 />
                 <span
-                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-opacity ${
-                    mobileOpen ? "opacity-0" : "opacity-100"
-                  }`}
+                  className={
+                    "block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-opacity " +
+                    (mobileOpen ? "opacity-0" : "opacity-100")
+                  }
                 />
                 <span
-                  className={`block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform ${
-                    mobileOpen ? "-translate-y-[7px] -rotate-45" : ""
-                  }`}
+                  className={
+                    "block h-[2px] w-5 rounded-full bg-slate-800 dark:bg-slate-100 transition-transform " +
+                    (mobileOpen ? "-translate-y-[7px] -rotate-45" : "")
+                  }
                 />
               </div>
             </button>
@@ -142,13 +147,11 @@ export default function Navbar() {
       {/* Mobile overlay + panel lateral */}
       {mobileOpen && (
         <div className="fixed inset-0 z-30 md:hidden">
-          {/* Fondo oscuro */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
 
-          {/* Panel lateral */}
           <div className="absolute right-0 top-0 h-full w-64 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-xl p-5 flex flex-col">
             <div className="flex items-center justify-between mb-6">
               <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
@@ -207,7 +210,7 @@ export default function Navbar() {
   );
 }
 
-// Selector de idioma para desktop: estilos distintos en light/dark
+// Selector de idioma para desktop (sin strings multilínea en className)
 function LangPickerDesktop({
   locale,
   onChange,
@@ -228,17 +231,7 @@ function LangPickerDesktop({
     <div className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="
-          inline-flex items-center gap-2
-          px-3 py-1.5
-          rounded-full
-          text-xs font-medium
-          bg-white/90 text-slate-700 border border-slate-300
-          hover:bg-white hover:border-slate-400
-          dark:bg-slate-900/70 dark:text-slate-100 dark:border-slate-700
-          dark:hover:bg-slate-900 dark:hover:border-slate-500
-          transition
-        "
+        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-white/90 text-slate-700 border border-slate-300 hover:bg-white hover:border-slate-400 dark:bg-slate-900/70 dark:text-slate-100 dark:border-slate-700 dark:hover:bg-slate-900 dark:hover:border-slate-500 transition"
         type="button"
       >
         <span className="text-base">{current.label.split(" ")[0]}</span>
@@ -248,13 +241,7 @@ function LangPickerDesktop({
       </button>
 
       {open && (
-        <div
-          className="
-            absolute right-0 mt-2 w-36 z-50
-            bg-white border border-slate-200 rounded-xl shadow-xl py-1
-            dark:bg-slate-900 dark:border-slate-700
-          "
-        >
+        <div className="absolute right-0 mt-2 w-36 z-50 bg-white border border-slate-200 rounded-xl shadow-xl py-1 dark:bg-slate-900 dark:border-slate-700">
           {items.map((item) => (
             <button
               key={item.code}
@@ -262,14 +249,12 @@ function LangPickerDesktop({
                 onChange(item.code);
                 setOpen(false);
               }}
-              className={`
-                w-full text-left px-3 py-2 text-xs
-                ${
-                  item.code === locale
-                    ? "text-sky-600 bg-slate-100 dark:text-sky-300 dark:bg-slate-800"
-                    : "text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
-                }
-              `}
+              className={
+                "w-full text-left px-3 py-2 text-xs " +
+                (item.code === locale
+                  ? "text-sky-600 bg-slate-100 dark:text-sky-300 dark:bg-slate-800"
+                  : "text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800")
+              }
               type="button"
             >
               {item.label}

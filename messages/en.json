@@ -3,85 +3,133 @@
     "classic": "Classic Conversion",
     "ai": "AI Center",
     "pricing": "Pricing",
-    "new": "New",
+    "new": "new",
     "home": "Home",
     "convert": "Converter",
     "language": "Language"
   },
 
   "Home": {
-    "title": "Transform your documents with powerful AI",
-    "subtitle": "Convert PDFs, clean handwritten notes, and create clear summaries instantly.",
-    "classicButton": "Conversion",
-    "aiButton": "Advanced AI",
-    "metaTitle": "NoteMorph | Convert PDFs, notes and images with AI",
-    "metaDescription": "Upload your PDFs or handwritten notes and instantly convert them into clean, editable Word documents with AI-powered formatting."
+    "metaTitle": "NoteMorph | Convert PDFs and notes with AI",
+    "metaDescription": "Upload your PDF or photos of your notes and turn them into a clean, editable Word document.",
+    "badge": "Convert, organize and study with AI",
+    "title": "Turn your documents into perfect notes with AI",
+    "subtitle": "NoteMorph transforms PDFs, handwritten notes and messy documents into clean, structured and editable material.",
+    "cta": {
+      "primary": "Get started",
+      "secondary": "See AI mode"
+    },
+    "trust": {
+      "fast": "Fast & secure conversion",
+      "format": "Preserves formatting, tables and sections",
+      "ai": "Understands your content with AI"
+    },
+    "preview": {
+      "badge": "Preview",
+      "caption": "Smart reconstruction of your notes: columns, lists, tables and headings."
+    },
+    "features": {
+      "title": "Designed for students, creators and professionals",
+      "subtitle": "NoteMorph combines advanced OCR with AI to always give you the best possible result.",
+      "cta": "See plans",
+      "items": [
+        {
+          "title": "Accurate PDF to Word conversion",
+          "description": "Preserves structure, headings and tables so you don’t have to rebuild the document."
+        },
+        {
+          "title": "OCR + AI for handwritten notes",
+          "description": "Turn photos of your notes into clean, organized and editable documents."
+        },
+        {
+          "title": "Smart study modes",
+          "description": "Coming soon: summaries, mind maps and flashcards in one click."
+        }
+      ]
+    },
+    "howItWorks": {
+      "title": "How NoteMorph works",
+      "steps": [
+        {
+          "title": "Upload your PDF or photos",
+          "description": "Drag your documents or note images from your phone or computer."
+        },
+        {
+          "title": "Let AI do the work",
+          "description": "Our model interprets the content, fixes OCR errors and structures the text."
+        },
+        {
+          "title": "Download & edit",
+          "description": "Get a clean, editable Word file, ready to study or share."
+        }
+      ]
+    },
+    "ctaFinal": {
+      "title": "Take your notes to the next level",
+      "subtitle": "Start free and discover how NoteMorph can save hours of work on every subject or project.",
+      "primary": "Try AI mode",
+      "secondary": "See plans"
+    }
   },
 
   "Ai": {
-    "metaTitle": "NoteMorph | AI-powered document processing",
-    "metaDescription": "Summaries, mindmaps, flashcards and OCR — all generated automatically using AI. Convert your notes, text and images into clean, structured content.",
-    "title": "AI Center for smarter studying and working",
-    "subtitle": "Paste your text or upload photos of your notes. Let NoteMorph turn them into short summaries, mindmaps or ready-to-study flashcards.",
-    
+    "metaTitle": "NoteMorph | Convert PDFs and notes with AI",
+    "metaDescription": "Upload your PDF or photos of your notes and turn them into a clean, editable Word document.",
+    "title": "AI Center for your documents",
+    "subtitle": "Paste text, notes or PDF excerpts and let NoteMorph turn them into summaries, mind maps or study flashcards. Or upload photos of your notes and convert them into clean text.",
     "modes": {
-      "summary": "Smart Summary",
-      "mindmap": "Mindmap / Outline",
-      "flashcards": "Study Flashcards",
-      "ocr": "OCR from Photos"
+      "summary": "Smart summary",
+      "mindmap": "Mind map / Outline",
+      "flashcards": "Study flashcards",
+      "ocr": "OCR from photos"
     },
-
     "input": {
       "title": "Input",
-      "subtitle": "Paste your content here",
-      "placeholder": "Paste class notes, textbook fragments or any text you want to improve...",
-      "buttonSoon": "Process with AI (coming soon)"
+      "subtitle": "Paste your text here",
+      "placeholder": "Paste a text, class notes, a PDF excerpt…",
+      "buttonSoon": "Process with AI (soon)"
     },
-
     "ocr": {
-      "inputTitle": "Upload note photos",
-      "inputSubtitle": "JPG / PNG images",
+      "inputTitle": "Upload handwritten notes",
+      "inputSubtitle": "JPG/PNG images",
       "button": "Process with OCR + AI",
       "buttonLoading": "Processing...",
-      "loadingText": "Extracting and cleaning your notes with OCR and AI...",
-      "emptyState": "Upload a few images and click \"Process with OCR + AI\" to see the result here."
+      "loadingText": "Processing images with OCR and AI...",
+      "emptyState": "Upload some images and click \"Process with OCR + AI\" to see the result here."
     },
-
     "output": {
-      "title": "AI Output ({mode})",
-      "descriptionStandard": "Your AI-generated content will appear here as soon as the backend is connected.",
-      "descriptionOcr": "Your handwritten notes will appear here as clean, readable text.",
+      "title": "AI Result ({mode})",
+      "descriptionStandard": "The AI result will appear here once the backend is connected.",
+      "descriptionOcr": "Here you’ll see the clean, structured text extracted from your note photos.",
       "example": "Example:"
     },
-
     "examples": {
       "summary": {
-        "line1": "• Clear and structured key points.",
-        "line2": "• Removes repeated or irrelevant content.",
-        "line3": "• Keeps only the most important ideas."
+        "line1": "• Structured summary with key points.",
+        "line2": "• Removes noise and repetitions.",
+        "line3": "• Keeps only the important ideas."
       },
       "mindmap": {
-        "line1": "• Titles and subtopics organized by importance.",
-        "line2": "• Connections between key concepts.",
-        "line3": "• Perfect for studying and presentations."
+        "line1": "• Hierarchical titles and subtitles.",
+        "line2": "• Relation between main and secondary concepts.",
+        "line3": "• Ideal for studying or presenting."
       },
       "flashcards": {
-        "line1": "• Auto-generated Q&A cards.",
-        "line2": "• Made for fast memorization.",
-        "line3": "• Ideal for spaced repetition."
+        "line1": "• Generates question-style cards (front/back).",
+        "line2": "• Designed for quick memorization.",
+        "line3": "• Perfect for spaced repetition."
       }
     },
-
     "errors": {
       "serverError": "Server error",
-      "ocrGeneric": "There was a problem processing your images"
+      "ocrGeneric": "Error processing images"
     }
   },
 
   "Convert": {
-    "title": "Smart File Converter",
+    "title": "Smart Converter",
     "subtitle": "Upload a file and choose the type of transformation you want.",
-    "drop": "Drag a file or click to upload",
+    "drop": "Drag a file or click to select",
     "type": "Conversion type",
 
     "opt": {
@@ -89,19 +137,19 @@
       "wordPdf": "Word → PDF",
       "imageText": "Image → Text",
       "smart": "Smart Summary",
-      "mindmap": "Mindmap / Outline"
+      "mindmap": "Mind Map / Outline"
     },
 
     "result": "Result",
-    "resultInfo": "Your converted file will appear here once it's ready.",
+    "resultInfo": "Your converted output will appear here.",
     "download": "Download result"
   },
 
   "Pricing": {
     "title": "Plans & Pricing",
-    "subtitle": "Start for free and unlock the full power of NoteMorph.",
+    "subtitle": "Start free and unlock the full power of NoteMorph.",
     "free": "Free",
-    "freeDesc": "2 daily conversions · Basic tools",
+    "freeDesc": "2 conversions/day · Basic features",
     "start": "Start",
     "pro": "Pro",
     "proDesc1": "Unlimited",
@@ -111,14 +159,14 @@
   },
 
   "Dropzone": {
-    "placeholder": "Drag a file or tap to select one",
-    "uploading": "Uploading...",
-    "error": "File upload error"
+    "placeholder": "Drag a file or click to select",
+    "uploading": "Uploading file...",
+    "error": "Error uploading file"
   },
 
   "Common": {
     "loading": "Loading...",
     "error": "Something went wrong",
-    "retry": "Try again"
+    "retry": "Retry"
   }
 }
