@@ -1,18 +1,18 @@
 "use client";
 
-import {usePathname, useRouter} from "next/navigation";
-import {useTranslations} from "next-intl";
-import {useMemo, useState} from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useMemo, useState } from "react";
 import AppLogo from "./AppLogo";
 
 const SUPPORTED_LOCALES = ["es", "en"] as const;
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 const NAV_ITEMS = [
-  { key: "home", path: "" },          // /
+  { key: "home", path: "" }, // /
   { key: "convert", path: "/convert" },
   { key: "ai", path: "/ai" },
-  { key: "pricing", path: "/pricing" }
+  { key: "pricing", path: "/pricing" },
 ];
 
 export default function Navbar() {
@@ -62,8 +62,8 @@ export default function Navbar() {
   return (
     <>
       {/* NAVBAR */}
-      <nav className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <nav className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/70 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <AppLogo href={`/${locale}`} />
 
@@ -83,7 +83,7 @@ export default function Navbar() {
                       "relative transition-colors " +
                       (isActive
                         ? "text-sky-600 dark:text-sky-400"
-                        : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white")
+                        : "text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white")
                     }
                   >
                     {t(item.key)}
@@ -96,25 +96,13 @@ export default function Navbar() {
             </div>
 
             {/* Language selector (desktop) */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">
-                {t("language")}
-              </span>
-              <select
-                className="text-sm bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-3 py-1.5 text-slate-700 dark:text-slate-100 hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/60"
-                value={locale}
-                onChange={(e) => handleLocaleChange(e.target.value)}
-              >
-                <option value="es">🇪🇸 ES</option>
-                <option value="en">🇬🇧 EN</option>
-              </select>
-            </div>
+            <LangPickerDesktop locale={locale} onChange={handleLocaleChange} />
           </div>
 
           {/* Mobile: language pill + hamburger */}
           <div className="flex items-center gap-3 md:hidden">
             <select
-              className="text-xs bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-2 py-1 text-slate-700 dark:text-slate-100 focus:outline-none"
+              className="text-xs bg-white/80 dark:bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-full px-2 py-1 text-slate-700 dark:text-slate-100 focus:outline-none"
               value={locale}
               onChange={(e) => handleLocaleChange(e.target.value)}
             >
@@ -204,7 +192,7 @@ export default function Navbar() {
                 {t("language")}
               </p>
               <select
-                className="w-full text-sm bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500/60"
+                className="w-full text-sm bg-white/80 dark:bg-transparent border border-slate-300/70 dark:border-slate-700/70 rounded-lg px-3 py-2 text-slate-700 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500/60"
                 value={locale}
                 onChange={(e) => handleLocaleChange(e.target.value)}
               >
@@ -216,5 +204,79 @@ export default function Navbar() {
         </div>
       )}
     </>
+  );
+}
+
+// Selector de idioma para desktop: estilos distintos en light/dark
+function LangPickerDesktop({
+  locale,
+  onChange,
+}: {
+  locale: string;
+  onChange: (lng: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  const items = [
+    { code: "es", label: "🇪🇸 Español" },
+    { code: "en", label: "🇬🇧 English" },
+  ];
+
+  const current = items.find((x) => x.code === locale) ?? items[0];
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="
+          inline-flex items-center gap-2
+          px-3 py-1.5
+          rounded-full
+          text-xs font-medium
+          bg-white/90 text-slate-700 border border-slate-300
+          hover:bg-white hover:border-slate-400
+          dark:bg-slate-900/70 dark:text-slate-100 dark:border-slate-700
+          dark:hover:bg-slate-900 dark:hover:border-slate-500
+          transition
+        "
+        type="button"
+      >
+        <span className="text-base">{current.label.split(" ")[0]}</span>
+        <span className="text-[10px] text-slate-400 dark:text-slate-500">
+          ▼
+        </span>
+      </button>
+
+      {open && (
+        <div
+          className="
+            absolute right-0 mt-2 w-36 z-50
+            bg-white border border-slate-200 rounded-xl shadow-xl py-1
+            dark:bg-slate-900 dark:border-slate-700
+          "
+        >
+          {items.map((item) => (
+            <button
+              key={item.code}
+              onClick={() => {
+                onChange(item.code);
+                setOpen(false);
+              }}
+              className={`
+                w-full text-left px-3 py-2 text-xs
+                ${
+                  item.code === locale
+                    ? "text-sky-600 bg-slate-100 dark:text-sky-300 dark:bg-slate-800"
+                    : "text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                }
+              `}
+              type="button"
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
