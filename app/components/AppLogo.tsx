@@ -1,34 +1,43 @@
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/public/icon-512.png";
 
 type AppLogoProps = {
   href?: string;
   className?: string;
+  size?: number;
+  variant?: "gradient" | "solid" | "soft" | "neon";
 };
 
 export default function AppLogo({
   href = "/",
   className = "",
+  size = 32,
+  variant = "gradient",
 }: AppLogoProps) {
-  return (
-    <Link href={href} className={`flex items-center gap-2 ${className}`}>
-      {/* Icono */}
-      <div className="relative flex h-8 w-8 items-center justify-center rounded-2xl bg-slate-900 dark:bg-slate-100 overflow-hidden">
-        {/* Fondo degradado suave */}
-        <div className="absolute inset-0 opacity-70 bg-[radial-gradient(circle_at_top,_#22d3ee_0,_transparent_50%),_radial-gradient(circle_at_bottom,_#6366f1_0,_transparent_55%)]" />
-        {/* Documento */}
-        <div className="relative h-5 w-4 rounded-sm bg-white/90 shadow-sm flex flex-col justify-center gap-0.5">
-          <div className="h-0.5 w-3 mx-auto rounded bg-slate-300" />
-          <div className="h-0.5 w-2.5 mx-auto rounded bg-slate-200" />
-          <div className="h-0.5 w-3 mx-auto rounded bg-slate-300" />
-        </div>
-        {/* Chispa IA */}
-        <div className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-gradient-to-tr from-sky-400 to-fuchsia-500 shadow-[0_0_10px_rgba(56,189,248,0.8)]" />
-      </div>
+  let titleClass = "notemorph-title notemorph-title--gradient-lg";
 
-      {/* Texto marca */}
-      <span className="font-semibold text-base tracking-tight text-slate-900 dark:text-slate-50">
-        NoteMorph
-      </span>
+  if (variant === "solid") {
+    titleClass = "notemorph-title notemorph-title--solid";
+  } else if (variant === "soft") {
+    titleClass = "notemorph-title notemorph-title--soft-uppercase";
+  } else if (variant === "neon") {
+    titleClass = "notemorph-title notemorph-title--neon";
+  }
+
+  return (
+    <Link
+      href={href}
+      className={`flex items-center gap-2 select-none ${className}`}
+    >
+      <Image
+        src={logo}
+        alt="NoteMorph logo"
+        width={size}
+        height={size}
+        className="rounded-md"
+      />
+      <span className={titleClass}>NoteMorph</span>
     </Link>
   );
 }
