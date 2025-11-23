@@ -66,9 +66,7 @@ export default function Navbar() {
       <nav className="sticky top-0 z-40 border-b border-slate-200/60 dark:border-slate-800/80 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href={buildHref(locale, "/")} className="flex items-center gap-2">
-            <AppLogo />
-          </Link>
+          <AppLogo href={`/${locale}`} />
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">

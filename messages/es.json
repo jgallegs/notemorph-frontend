@@ -19,6 +19,8 @@
   },
 
   "Ai": {
+    "metaTitle": "NoteMorph | Convierte PDFs y apuntes con IA",
+    "metaDescription": "Sube tu PDF o fotos de tus apuntes y conviértelos en Word limpio, listo para editar.",
     "title": "Centro de IA para tus documentos",
     "subtitle": "Pega texto, notas o extractos de PDF y deja que NoteMorph los convierta en resúmenes claros, mapas mentales o tarjetas de estudio. O sube fotos de tus apuntes y conviértelas en texto limpio.",
     "modes": {

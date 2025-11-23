@@ -1,14 +1,13 @@
 // frontend/app/robots.ts
 import { MetadataRoute } from "next";
+import { SITE_URL } from "./constants/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://notemorph.com"; // 👈 cámbialo
-
   return {
     rules: {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

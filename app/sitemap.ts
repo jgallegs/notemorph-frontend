@@ -1,9 +1,10 @@
 // frontend/app/sitemap.ts
 import { MetadataRoute } from "next";
 import { locales } from "../i18n/config";
+import { SITE_URL } from "./constants/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://notemorph.com"; // 👈 cámbialo por el real
+  const baseUrl = SITE_URL;
 
   const routes = ["", "/convert", "/ai", "/pricing"];
 

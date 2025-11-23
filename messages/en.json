@@ -1,77 +1,87 @@
 {
   "Navbar": {
-    "classic": "Classic conversion",
+    "classic": "Classic Conversion",
     "ai": "AI Center",
     "pricing": "Pricing",
-    "new": "new",
+    "new": "New",
     "home": "Home",
-    "convert": "Convertidor",
-    "language": "Idioma"
+    "convert": "Converter",
+    "language": "Language"
   },
 
   "Home": {
-    "title": "Transform your documents with AI",
-    "subtitle": "Convert PDFs, summarize text and generate content instantly.",
+    "title": "Transform your documents with powerful AI",
+    "subtitle": "Convert PDFs, clean handwritten notes, and create clear summaries instantly.",
     "classicButton": "Conversion",
-    "aiButton": "Advanced AI"
+    "aiButton": "Advanced AI",
+    "metaTitle": "NoteMorph | Convert PDFs, notes and images with AI",
+    "metaDescription": "Upload your PDFs or handwritten notes and instantly convert them into clean, editable Word documents with AI-powered formatting."
   },
 
   "Ai": {
-    "title": "Centro de IA para tus documentos",
-    "subtitle": "Pega texto, notas o extractos de PDF y deja que NoteMorph los convierta en resúmenes claros, mapas mentales o tarjetas de estudio. O sube fotos de tus apuntes y conviértelas en texto limpio.",
+    "metaTitle": "NoteMorph | AI-powered document processing",
+    "metaDescription": "Summaries, mindmaps, flashcards and OCR — all generated automatically using AI. Convert your notes, text and images into clean, structured content.",
+    "title": "AI Center for smarter studying and working",
+    "subtitle": "Paste your text or upload photos of your notes. Let NoteMorph turn them into short summaries, mindmaps or ready-to-study flashcards.",
+    
     "modes": {
-      "summary": "Resumen inteligente",
-      "mindmap": "Mapa mental / Esquema",
-      "flashcards": "Flashcards de estudio",
-      "ocr": "OCR desde fotos"
+      "summary": "Smart Summary",
+      "mindmap": "Mindmap / Outline",
+      "flashcards": "Study Flashcards",
+      "ocr": "OCR from Photos"
     },
+
     "input": {
-      "title": "Entrada",
-      "subtitle": "Pega tu texto aquí",
-      "placeholder": "Pega aquí un texto, resumen de clase, fragmento de PDF…",
-      "buttonSoon": "Procesar con IA (pronto)"
+      "title": "Input",
+      "subtitle": "Paste your content here",
+      "placeholder": "Paste class notes, textbook fragments or any text you want to improve...",
+      "buttonSoon": "Process with AI (coming soon)"
     },
+
     "ocr": {
-      "inputTitle": "Subir fotos de apuntes",
-      "inputSubtitle": "Imágenes JPG/PNG",
-      "button": "Procesar con OCR + IA",
-      "buttonLoading": "Procesando...",
-      "loadingText": "Procesando imágenes con OCR e IA...",
-      "emptyState": "Sube algunas imágenes y pulsa \"Procesar con OCR + IA\" para ver aquí el resultado."
+      "inputTitle": "Upload note photos",
+      "inputSubtitle": "JPG / PNG images",
+      "button": "Process with OCR + AI",
+      "buttonLoading": "Processing...",
+      "loadingText": "Extracting and cleaning your notes with OCR and AI...",
+      "emptyState": "Upload a few images and click \"Process with OCR + AI\" to see the result here."
     },
+
     "output": {
-      "title": "Resultado IA ({mode})",
-      "descriptionStandard": "Aquí aparecerá el resultado generado por IA una vez conectemos el backend.",
-      "descriptionOcr": "Aquí aparecerá el texto limpio y estructurado a partir de tus fotos de apuntes.",
-      "example": "Ejemplo:"
+      "title": "AI Output ({mode})",
+      "descriptionStandard": "Your AI-generated content will appear here as soon as the backend is connected.",
+      "descriptionOcr": "Your handwritten notes will appear here as clean, readable text.",
+      "example": "Example:"
     },
+
     "examples": {
       "summary": {
-        "line1": "• Resumen estructurado en puntos clave.",
-        "line2": "• Se eliminan repeticiones y ruido.",
-        "line3": "• Se quedan solo las ideas importantes de tu texto."
+        "line1": "• Clear and structured key points.",
+        "line2": "• Removes repeated or irrelevant content.",
+        "line3": "• Keeps only the most important ideas."
       },
       "mindmap": {
-        "line1": "• Títulos y subtítulos jerárquicos.",
-        "line2": "• Relación entre conceptos principales y secundarios.",
-        "line3": "• Ideal para estudiar o preparar presentaciones."
+        "line1": "• Titles and subtopics organized by importance.",
+        "line2": "• Connections between key concepts.",
+        "line3": "• Perfect for studying and presentations."
       },
       "flashcards": {
-        "line1": "• Se generan preguntas tipo tarjeta (anverso / reverso).",
-        "line2": "• Pensadas para memorización rápida.",
-        "line3": "• Perfectas para repasos espaciados."
+        "line1": "• Auto-generated Q&A cards.",
+        "line2": "• Made for fast memorization.",
+        "line3": "• Ideal for spaced repetition."
       }
     },
+
     "errors": {
-      "serverError": "Error en el servidor",
-      "ocrGeneric": "Error procesando las imágenes"
+      "serverError": "Server error",
+      "ocrGeneric": "There was a problem processing your images"
     }
   },
 
   "Convert": {
-    "title": "Smart Converter",
-    "subtitle": "Upload a file and choose what type of transformation you want.",
-    "drop": "Drag a file or click to select",
+    "title": "Smart File Converter",
+    "subtitle": "Upload a file and choose the type of transformation you want.",
+    "drop": "Drag a file or click to upload",
     "type": "Conversion type",
 
     "opt": {
@@ -79,11 +89,11 @@
       "wordPdf": "Word → PDF",
       "imageText": "Image → Text",
       "smart": "Smart Summary",
-      "mindmap": "Mind Map / Outline"
+      "mindmap": "Mindmap / Outline"
     },
 
     "result": "Result",
-    "resultInfo": "The result will appear here once the conversion is ready.",
+    "resultInfo": "Your converted file will appear here once it's ready.",
     "download": "Download result"
   },
 
@@ -91,7 +101,7 @@
     "title": "Plans & Pricing",
     "subtitle": "Start for free and unlock the full power of NoteMorph.",
     "free": "Free",
-    "freeDesc": "2 conversions per day · Basic features",
+    "freeDesc": "2 daily conversions · Basic tools",
     "start": "Start",
     "pro": "Pro",
     "proDesc1": "Unlimited",
@@ -101,14 +111,14 @@
   },
 
   "Dropzone": {
-    "placeholder": "Drag a file or click to select",
-    "uploading": "Uploading file...",
-    "error": "Upload error"
+    "placeholder": "Drag a file or tap to select one",
+    "uploading": "Uploading...",
+    "error": "File upload error"
   },
 
   "Common": {
     "loading": "Loading...",
     "error": "Something went wrong",
-    "retry": "Retry"
+    "retry": "Try again"
   }
 }

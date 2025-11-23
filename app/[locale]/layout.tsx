@@ -1,23 +1,29 @@
+// frontend/app/[locale]/layout.tsx
 export const dynamic = "force-dynamic";
 
-import "../globals.css";
 import { ReactNode } from "react";
-
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 
 import type { Metadata } from "next";
 import { locales, Locale } from "../../i18n/config";
-import "../globals.css";
 import Navbar from "../components/Navbar";
+import { SITE_URL } from "../constants/site";
+
+type LayoutParams = { locale: Locale };
 
 type Props = {
-  children: React.ReactNode;
-  params: { locale: Locale };
+  children: ReactNode;
+  params: Promise<LayoutParams>;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const baseUrl = "https://notemorph.com"; // 👈
+export async function generateMetadata(
+  { params }: { params: Props["params"] }
+): Promise<Metadata> {
+  const { locale } = await params;
+
+  const baseUrl = SITE_URL;
 
   const languages: Record<string, string> = {};
   for (const loc of locales) {
@@ -27,28 +33,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     alternates: {
       languages,
+      canonical: `${baseUrl}/${locale}`,
     },
   };
 }
 
-export default function LocaleLayout({ children, params }: Props) {
-  const { locale } = params;
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
 
-  // Validar idioma soportado
-  if (!locales.includes(locale as (typeof locales)[number])) {
+  if (!locales.includes(locale)) {
     notFound();
   }
 
-  // Avisar a next-intl de qué locale se está usando
   setRequestLocale(locale);
+  const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className="bg-gray-50 text-gray-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen">
-        <Navbar />
-        <main className="pt-4">{children}</main>
-      </body>
-    </html>
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <Navbar />
+      <main className="pt-4">{children}</main>
+    </NextIntlClientProvider>
   );
 }
 

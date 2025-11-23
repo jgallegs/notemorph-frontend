@@ -1,8 +1,16 @@
 import Link from "next/link";
 
-export default function AppLogo() {
+type AppLogoProps = {
+  href?: string;
+  className?: string;
+};
+
+export default function AppLogo({
+  href = "/",
+  className = "",
+}: AppLogoProps) {
   return (
-    <Link href="/" className="flex items-center gap-2">
+    <Link href={href} className={`flex items-center gap-2 ${className}`}>
       {/* Icono */}
       <div className="relative flex h-8 w-8 items-center justify-center rounded-2xl bg-slate-900 dark:bg-slate-100 overflow-hidden">
         {/* Fondo degradado suave */}
