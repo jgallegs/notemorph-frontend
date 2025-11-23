@@ -10,14 +10,14 @@ export function AiPageClient() {
   const t = useTranslations("Ai");
   const [mode, setMode] = useState<Mode>("summary");
 
-  const [ocrPreviewHtml, setOcrPreviewHtml] = useState<string | null>(null);
+  const [ocrPreviewPages, setOcrPreviewPages] = useState<string[] | null>(null);
   const [ocrLoading, setOcrLoading] = useState(false);
   const [ocrError, setOcrError] = useState<string | null>(null);
 
   async function handleOcrSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setOcrError(null);
-    setOcrPreviewHtml(null);
+    setOcrPreviewPages(null);
     setOcrLoading(true);
 
     try {
@@ -41,10 +41,23 @@ export function AiPageClient() {
       }
 
       const data = await res.json();
-      setOcrPreviewHtml(data.previewHtml || "<p>Sin contenido procesado</p>");
+
+      // Si en el futuro el backend devuelve previewPages: string[]
+      const pagesFromApi: string[] | undefined = data.previewPages;
+
+      // Fallback: si solo hay previewHtml, lo usamos como una única página
+      const fallbackHtml: string =
+        data.previewHtml || "<p>Sin contenido procesado</p>";
+
+      setOcrPreviewPages(
+        pagesFromApi && pagesFromApi.length > 0
+          ? pagesFromApi
+          : [fallbackHtml]
+      );
     } catch (err: any) {
       console.error(err);
       setOcrError(err?.message || t("errors.ocrGeneric"));
+      setOcrPreviewPages(null);
     } finally {
       setOcrLoading(false);
     }
@@ -131,7 +144,9 @@ export function AiPageClient() {
                 />
 
                 {ocrError && (
-                  <p className="text-xs text-red-500">{ocrError}</p>
+                  <p className="text-xs text-red-500 dark:text-red-400">
+                    {ocrError}
+                  </p>
                 )}
 
                 <button
@@ -147,53 +162,124 @@ export function AiPageClient() {
         </div>
 
         {/* Resultado */}
-        <div className="bg-slate-950/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.3),_transparent_60%),_radial-gradient(circle_at_bottom,_rgba(129,140,248,0.25),_transparent_55%)]" />
-          <div className="relative">
-            <h2 className="text-sm font-semibold text-slate-100 mb-3">
-              {t("output.title", { mode: t(`modes.${mode}`) })}
-            </h2>
-            <p className="text-xs text-slate-400 mb-2">
-              {!isOcrMode
-                ? t("output.descriptionStandard")
-                : t("output.descriptionOcr")}
-            </p>
+        <div className="rounded-2xl p-5 shadow-lg border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-50 mb-3">
+            {t("output.title", { mode: t(`modes.${mode}`) })}
+          </h2>
+          <p className="text-xs text-slate-600 dark:text-slate-400 mb-2">
+            {!isOcrMode
+              ? t("output.descriptionStandard")
+              : t("output.descriptionOcr")}
+          </p>
 
-            {!isOcrMode ? (
-              <div className="mt-4 text-sm text-slate-200 space-y-2">
-                <p className="italic text-slate-400">{t("output.example")}</p>
+          {!isOcrMode ? (
+            <div className="mt-4 text-sm text-slate-800 dark:text-slate-100 space-y-2">
+              <p className="italic text-slate-500 dark:text-slate-400">
+                {t("output.example")}
+              </p>
+            </div>
+          ) : (
+            <>
+              {ocrLoading && (
+                <p className="text-xs text-slate-700 dark:text-slate-300 animate-pulse">
+                  {t("ocr.loadingMessage")}
+                </p>
+              )}
 
-              </div>
-            ) : (
-              <>
-                {ocrLoading && (
-                  <p className="text-xs text-slate-300 animate-pulse">
-                    {t("ocr.loadingMessage")}
-                  </p>
-                )}
+              {!ocrLoading && !ocrPreviewPages && !ocrError && (
+                <p className="text-xs text-slate-600 dark:text-slate-400">
+                  {t("ocr.emptyState")}
+                </p>
+              )}
 
-                {!ocrLoading && !ocrPreviewHtml && !ocrError && (
-                  <p className="text-xs text-slate-400">
-                    {t("ocr.emptyState")}
-                  </p>
-                )}
+              {ocrError && (
+                <p className="text-xs text-red-500 dark:text-red-400 mt-2">
+                  {ocrError}
+                </p>
+              )}
 
-                {ocrError && (
-                  <p className="text-xs text-red-400 mt-2">{ocrError}</p>
-                )}
-
-                {ocrPreviewHtml && (
-                  <div className="mt-4 bg-slate-900/70 border border-slate-700 rounded-xl p-3 max-h-96 overflow-auto text-sm prose prose-invert">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: ocrPreviewHtml }}
-                    />
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+              {ocrPreviewPages && !ocrError && (
+                <OcrWordPreview pages={ocrPreviewPages} />
+              )}
+            </>
+          )}
         </div>
       </div>
+    </div>
+  );
+}
+
+type OcrWordPreviewProps = {
+  pages: string[];
+};
+
+function OcrWordPreview({ pages }: OcrWordPreviewProps) {
+  const [pageIndex, setPageIndex] = useState(0);
+
+  if (!pages || pages.length === 0) return null;
+
+  const total = pages.length;
+  const current = pageIndex + 1;
+
+  const goPrev = () => setPageIndex((p) => Math.max(0, p - 1));
+  const goNext = () => setPageIndex((p) => Math.min(total - 1, p + 1));
+
+  return (
+    <div className="mt-4 flex flex-col items-center gap-4">
+      {/* Zona tipo editor Word */}
+      <div className="w-full flex justify-center">
+        <div
+          className="
+            relative
+            bg-white
+            rounded-2xl
+            shadow-md
+            border border-slate-200
+            overflow-hidden
+            px-10 py-12
+            max-w-[820px]
+            min-h-[1000px]
+          "
+          style={{
+            aspectRatio: "210 / 297", // aproximación A4 vertical
+          }}
+        >
+          <div
+            className="prose prose-slate max-w-none text-slate-900"
+            dangerouslySetInnerHTML={{ __html: pages[pageIndex] }}
+          />
+        </div>
+      </div>
+
+      {/* Controles de paginación */}
+      {total > 1 && (
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={goPrev}
+            disabled={pageIndex === 0}
+            className="px-3 py-1 rounded-md border border-slate-300 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+          >
+            &lt;
+          </button>
+
+          <div className="flex items-center gap-2 text-sm text-slate-700">
+            <span>Página</span>
+            <span className="font-semibold">
+              {current} / {total}
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={goNext}
+            disabled={pageIndex === total - 1}
+            className="px-3 py-1 rounded-md border border-slate-300 bg-white text-slate-700 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+          >
+            &gt;
+          </button>
+        </div>
+      )}
     </div>
   );
 }
